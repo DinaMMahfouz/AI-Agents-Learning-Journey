@@ -1,0 +1,8 @@
+<botcomponent_workflowset>
+  <botcomponent_workflow botcomponentid.schemaname="cr978_CustomerServiceCopilot.topic.PlaceOrders" workflowid.workflowid="5967c0df-e16b-f111-ab0d-00224809a710">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_workflow>
+  <botcomponent_workflow botcomponentid.schemaname="cr978_CustomerServiceCopilot.topic.PlaceOrders" workflowid.workflowid="a97fd30a-e16b-f111-ab0d-00224809a710">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_workflow>
+</botcomponent_workflowset>

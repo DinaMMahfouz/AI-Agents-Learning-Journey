@@ -1,0 +1,9 @@
+kind: GptComponentMetadata
+displayName: Customer Service Copilot
+instructions:
+gptCapabilities:
+  webBrowsing: true
+
+aISettings:
+  model:
+    modelNameHint: Sonnet46

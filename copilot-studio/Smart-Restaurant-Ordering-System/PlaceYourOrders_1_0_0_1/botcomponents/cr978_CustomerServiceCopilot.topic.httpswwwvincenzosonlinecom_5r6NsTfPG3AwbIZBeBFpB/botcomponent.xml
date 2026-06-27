@@ -1,0 +1,11 @@
+<botcomponent schemaname="cr978_CustomerServiceCopilot.topic.httpswwwvincenzosonlinecom_5r6NsTfPG3AwbIZBeBFpB">
+  <componenttype>16</componenttype>
+  <description>This knowledge source searches information on the web found in https://www.vincenzosonline.com/ website</description>
+  <iscustomizable>0</iscustomizable>
+  <name>https://www.vincenzosonline.com/</name>
+  <parentbotid>
+    <schemaname>cr978_CustomerServiceCopilot</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

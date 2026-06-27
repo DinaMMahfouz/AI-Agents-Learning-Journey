@@ -1,0 +1,10 @@
+<botcomponent schemaname="cr978_CustomerServiceCopilot.topic.PlaceOrders">
+  <componenttype>9</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>Place Orders</name>
+  <parentbotid>
+    <schemaname>cr978_CustomerServiceCopilot</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

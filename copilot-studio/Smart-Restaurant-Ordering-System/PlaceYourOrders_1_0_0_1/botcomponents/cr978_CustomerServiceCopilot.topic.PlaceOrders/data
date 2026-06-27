@@ -1,0 +1,354 @@
+kind: AdaptiveDialog
+modelDescription: |-
+  Place Order
+  Make Order
+  Order
+  Lunch Order
+  Book Order
+  Place an Order
+  Take Out
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: SendActivity
+      id: sendActivity_HFi7yi
+      activity: It looks like you're trying to place an order is this order for a Sandiwch or is it for Soup?
+
+    - kind: Question
+      id: question_TU6CM0
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.Var1
+      prompt: What type or order is it
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: Sandwich
+              displayName: Sandwich
+
+            - id: Soup
+              displayName: Soup
+
+    - kind: ConditionGroup
+      id: conditionGroup_YpFA80
+      conditions:
+        - id: conditionItem_pRsQ75
+          condition: =Topic.Var1 = 'cr978_CustomerServiceCopilot.topic.PlaceOrders.main.question_TU6CM0'.Sandwich
+          actions:
+            - kind: AdaptiveCardPrompt
+              id: pfCffg
+              card: |-
+                {
+                  "type": "AdaptiveCard",
+                  "version": "1.5",
+                  "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+                  "body": [
+                    {
+                      "type": "TextBlock",
+                      "text": "Lunch Order",
+                      "weight": "Bolder",
+                      "size": "Large"
+                    },
+                    {
+                      "type": "TextBlock",
+                      "text": "Please customize your sandwich order.",
+                      "wrap": true
+                    },
+                    {
+                      "type": "Input.ChoiceSet",
+                      "id": "meat",
+                      "label": "Meat",
+                      "isRequired": true,
+                      "errorMessage": "Please select a meat option.",
+                      "choices": [
+                        {
+                          "title": "Chicken",
+                          "value": "Chicken"
+                        },
+                        {
+                          "title": "Turkey",
+                          "value": "Turkey"
+                        },
+                        {
+                          "title": "Beef",
+                          "value": "Beef"
+                        },
+                        {
+                          "title": "Tuna",
+                          "value": "Tuna"
+                        },
+                        {
+                          "title": "Vegetarian",
+                          "value": "Vegetarian"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Input.ChoiceSet",
+                      "id": "cheeseType",
+                      "label": "Cheese Type",
+                      "isRequired": true,
+                      "errorMessage": "Please select a cheese type.",
+                      "choices": [
+                        {
+                          "title": "Cheddar",
+                          "value": "Cheddar"
+                        },
+                        {
+                          "title": "Mozzarella",
+                          "value": "Mozzarella"
+                        },
+                        {
+                          "title": "Swiss",
+                          "value": "Swiss"
+                        },
+                        {
+                          "title": "No Cheese",
+                          "value": "No Cheese"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Input.ChoiceSet",
+                      "id": "breadType",
+                      "label": "Bread Type",
+                      "isRequired": true,
+                      "errorMessage": "Please select a bread type.",
+                      "choices": [
+                        {
+                          "title": "White Bread",
+                          "value": "White Bread"
+                        },
+                        {
+                          "title": "Brown Bread",
+                          "value": "Brown Bread"
+                        },
+                        {
+                          "title": "Multigrain",
+                          "value": "Multigrain"
+                        },
+                        {
+                          "title": "Baguette",
+                          "value": "Baguette"
+                        },
+                        {
+                          "title": "Wrap",
+                          "value": "Wrap"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Input.ChoiceSet",
+                      "id": "toppings",
+                      "label": "Toppings",
+                      "style": "expanded",
+                      "isMultiSelect": true,
+                      "choices": [
+                        {
+                          "title": "Lettuce",
+                          "value": "Lettuce"
+                        },
+                        {
+                          "title": "Tomato",
+                          "value": "Tomato"
+                        },
+                        {
+                          "title": "Cucumber",
+                          "value": "Cucumber"
+                        },
+                        {
+                          "title": "Onion",
+                          "value": "Onion"
+                        },
+                        {
+                          "title": "Pickles",
+                          "value": "Pickles"
+                        },
+                        {
+                          "title": "Olives",
+                          "value": "Olives"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Input.Text",
+                      "id": "specialInstructions",
+                      "label": "Special Instructions",
+                      "placeholder": "Example: no onions, extra sauce",
+                      "isMultiline": true
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": "Action.Submit",
+                      "title": "Place Order",
+                      "data": {
+                        "action": "placeLunchOrder"
+                      }
+                    }
+                  ]
+                }
+              output:
+                binding:
+                  action: Topic.action
+                  actionSubmitId: Topic.actionSubmitId
+                  breadType: Topic.breadType
+                  cheeseType: Topic.cheeseType
+                  meat: Topic.meat
+                  specialInstructions: Topic.specialInstructions
+                  toppings: Topic.toppings
+
+              outputType:
+                properties:
+                  action: String
+                  actionSubmitId: String
+                  breadType: String
+                  cheeseType: String
+                  meat: String
+                  specialInstructions: String
+                  toppings:
+                    type:
+                      kind: Table
+                      properties:
+                        Value: String
+
+            - kind: Question
+              id: question_LI6iQY
+              interruptionPolicy:
+                allowInterruption: true
+
+              variable: init:Topic.Var3
+              prompt: |-
+                Cloud you please confrim the following order?
+
+                Meat: {Topic.meat}
+                Cheese:{Topic.cheeseType}
+                Bread:{Topic.breadType}
+                Toppings:{Topic.toppings}
+              entity:
+                kind: EmbeddedEntity
+                definition:
+                  kind: ClosedListEntity
+                  items:
+                    - id: Yes
+                      displayName: Yes
+
+                    - id: No
+                      displayName: No
+
+            - kind: ConditionGroup
+              id: conditionGroup_csviHm
+              conditions:
+                - id: conditionItem_Cuf4Gs
+                  condition: =Topic.Var3 = 'cr978_CustomerServiceCopilot.topic.PlaceOrders.main.question_LI6iQY'.Yes
+                  actions:
+                    - kind: Question
+                      id: question_Jste8h
+                      interruptionPolicy:
+                        allowInterruption: true
+
+                      variable: init:Topic.CustomerName
+                      prompt: Great! What is the name of the order
+                      entity: PersonNamePrebuiltEntity
+
+                    - kind: InvokeFlowAction
+                      id: invokeFlowAction_dR7oK6
+                      input:
+                        binding:
+                          text: =Topic.meat
+                          text_1: =Topic.cheeseType
+                          text_2: =Topic.breadType
+                          text_3: =Concat(Topic.toppings, Value & ",")
+                          text_4: =Topic.CustomerName
+
+                      output:
+                        binding:
+                          output: Topic.Output
+
+                      flowId: a97fd30a-e16b-f111-ab0d-00224809a710
+
+                    - kind: SendActivity
+                      id: sendActivity_YPfBjb
+                      activity: "{Topic.Output}"
+
+                - id: conditionItem_vTd8ZT
+                  condition: =Topic.Var3 = 'cr978_CustomerServiceCopilot.topic.PlaceOrders.main.question_LI6iQY'.No
+                  actions:
+                    - kind: GotoAction
+                      id: nePcis
+                      actionId: pfCffg
+
+              elseActions:
+                - kind: GotoAction
+                  id: TmhIp7
+                  actionId: pfCffg
+
+        - id: conditionItem_qvKeIw
+          condition: =Topic.Var1 = 'cr978_CustomerServiceCopilot.topic.PlaceOrders.main.question_TU6CM0'.Soup
+          actions:
+            - kind: Question
+              id: question_KsX8DJ
+              interruptionPolicy:
+                allowInterruption: true
+
+              variable: init:Topic.Var2
+              prompt: Great. Looks like you want to order some soup. What type of Soup do you want?
+              entity:
+                kind: EmbeddedEntity
+                definition:
+                  kind: ClosedListEntity
+                  items:
+                    - id: Tomato
+                      displayName: Tomato
+
+                    - id: Broccoli
+                      displayName: Broccoli
+
+                    - id: Chicken Noodle
+                      displayName: Chicken Noodle
+
+            - kind: ConditionGroup
+              id: conditionGroup_ZBdOLA
+              conditions:
+                - id: conditionItem_rQ0nM1
+                  condition: =Topic.Var2 = 'cr978_CustomerServiceCopilot.topic.PlaceOrders.main.question_KsX8DJ'.Tomato
+
+                - id: conditionItem_U4Hb4g
+                  condition: =Topic.Var2 = 'cr978_CustomerServiceCopilot.topic.PlaceOrders.main.question_KsX8DJ'.Broccoli
+
+                - id: conditionItem_cUs5t0
+                  condition: =Topic.Var2 = 'cr978_CustomerServiceCopilot.topic.PlaceOrders.main.question_KsX8DJ'.'Chicken Noodle'
+
+            - kind: Question
+              id: question_VRyht5
+              interruptionPolicy:
+                allowInterruption: true
+
+              variable: init:Topic.Var4
+              prompt: What's the name of the order?
+              entity: PersonNamePrebuiltEntity
+
+            - kind: InvokeFlowAction
+              id: invokeFlowAction_Am09s8
+              input:
+                binding:
+                  text: =Text(Topic.Var2)
+                  text_1: =Topic.Var4
+
+              output:
+                binding:
+                  output: Topic.Output
+
+              flowId: 5967c0df-e16b-f111-ab0d-00224809a710
+
+            - kind: SendActivity
+              id: sendActivity_n35Zo3
+              activity: "{Topic.Output}"
+
+inputType: {}
+outputType: {}

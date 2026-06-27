@@ -1,0 +1,11 @@
+<botcomponent schemaname="cr978_CustomerServiceCopilot.gpt.default">
+  <componenttype>15</componenttype>
+  <description>vincenzos customer service agent</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Customer Service Copilot</name>
+  <parentbotid>
+    <schemaname>cr978_CustomerServiceCopilot</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>
