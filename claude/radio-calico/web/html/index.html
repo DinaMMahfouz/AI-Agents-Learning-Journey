@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RadioCalico — Lossless Radio</title>
+  <meta name="description" content="RadioCalico — crystal-clear lossless radio. Ad-free, data-free, subscription-free.">
+
+  <!-- Brand fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- HLS playback for browsers without native support -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="brand">Radio</span>
+      <img src="logo.png" alt="RadioCalico logo">
+      <span class="brand calico">Calico</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="player-grid">
+      <!-- Left: album art -->
+      <img id="cover" class="cover" src="" alt="Album art">
+
+      <!-- Right: track info + controls -->
+      <div class="info-col">
+        <h1 id="npArtist" class="np-artist">Radio Calico</h1>
+        <p id="npTitle" class="np-title">Press play to start the stream</p>
+
+        <p id="npAlbum" class="np-album"></p>
+        <p class="quality">Source quality: <span id="srcQuality">—</span></p>
+        <p class="quality">Stream quality: <span id="streamQuality">lossless FLAC / HLS</span></p>
+
+        <hr class="rule">
+
+        <div class="rating" aria-label="Rate this track">
+          <span class="label">Rate this track:</span>
+          <button id="thumbUp" class="rate-btn" type="button" aria-pressed="false" aria-label="Thumbs up">
+            <span class="ico" aria-hidden="true">👍</span>
+            <span class="rate-count" id="upCount">0</span>
+          </button>
+          <button id="thumbDown" class="rate-btn" type="button" aria-pressed="false" aria-label="Thumbs down">
+            <span class="ico" aria-hidden="true">👎</span>
+            <span class="rate-count" id="downCount">0</span>
+          </button>
+        </div>
+
+        <div class="player-bar">
+          <button id="playBtn" class="play-btn" aria-label="Play" aria-pressed="false">
+            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+          <span id="time" class="time">0:00</span>
+          <span id="status" class="status"><span class="live-dot"></span>Off air</span>
+          <div class="volume">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M11 5 6 9H2v6h4l5 4z"/>
+              <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+            </svg>
+            <input id="volume" type="range" min="0" max="100" value="80" aria-label="Volume">
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section class="previous">
+    <div class="previous-inner">
+      <h2>Previous tracks:</h2>
+      <ol id="recentList"><li class="empty">Loading…</li></ol>
+    </div>
+  </section>
+
+  <!-- The audio element does the actual playback -->
+  <audio id="audio" preload="none"></audio>
+
+  <script src="app.js"></script>
+</body>
+</html>

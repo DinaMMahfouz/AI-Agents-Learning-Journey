@@ -1,0 +1,7 @@
+# Local secrets / env overrides
+.env
+.env.local
+
+# Editor / OS noise
+*.swp
+.DS_Store
